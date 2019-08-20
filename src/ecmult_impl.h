@@ -181,14 +181,14 @@ static void secp256k1_ecmult_odd_multiples_table_storage_var(int n, secp256k1_ge
     } \
 } while(0)
 
-static void secp256k1_ecmult_context_init(secp256k1_ecmult_context *ctx) {
+void secp256k1_ecmult_context_init(secp256k1_ecmult_context *ctx) {
     ctx->pre_g = NULL;
 #ifdef USE_ENDOMORPHISM
     ctx->pre_g_128 = NULL;
 #endif
 }
 
-static void secp256k1_ecmult_context_build(secp256k1_ecmult_context *ctx, const secp256k1_callback *cb) {
+void secp256k1_ecmult_context_build(secp256k1_ecmult_context *ctx, const secp256k1_callback *cb) {
     secp256k1_gej gj;
 
     if (ctx->pre_g != NULL) {
@@ -244,7 +244,7 @@ static int secp256k1_ecmult_context_is_built(const secp256k1_ecmult_context *ctx
     return ctx->pre_g != NULL;
 }
 
-static void secp256k1_ecmult_context_clear(secp256k1_ecmult_context *ctx) {
+void secp256k1_ecmult_context_clear(secp256k1_ecmult_context *ctx) {
     free(ctx->pre_g);
 #ifdef USE_ENDOMORPHISM
     free(ctx->pre_g_128);
@@ -484,7 +484,7 @@ static void secp256k1_ecmult_strauss_wnaf(const secp256k1_ecmult_context *ctx, c
     }
 }
 
-static void secp256k1_ecmult(const secp256k1_ecmult_context *ctx, secp256k1_gej *r, const secp256k1_gej *a, const secp256k1_scalar *na, const secp256k1_scalar *ng) {
+void secp256k1_ecmult(const secp256k1_ecmult_context *ctx, secp256k1_gej *r, const secp256k1_gej *a, const secp256k1_scalar *na, const secp256k1_scalar *ng) {
     secp256k1_gej prej[ECMULT_TABLE_SIZE(WINDOW_A)];
     secp256k1_fe zr[ECMULT_TABLE_SIZE(WINDOW_A)];
     secp256k1_ge pre_a[ECMULT_TABLE_SIZE(WINDOW_A)];
